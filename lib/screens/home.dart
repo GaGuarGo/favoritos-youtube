@@ -1,3 +1,5 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:favoritos_youtube/blocs/video_bloc.dart';
 import 'package:favoritos_youtube/delegates/data_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,9 +30,32 @@ class Home extends StatelessWidget {
               onPressed: () async {
                 String? result =
                     await showSearch(context: context, delegate: DataSearch());
+                if (result != null) {
+                  BlocProvider.getBloc<VideoBloc>().inSearch.add(result);
+                }
               },
               icon: const Icon(Icons.search)),
         ],
+      ),
+      body: StreamBuilder(
+        stream: BlocProvider.getBloc<VideoBloc>().outVideos,
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(itemBuilder: (context, index) {});
+          } else {
+            return Container(
+              alignment: Alignment.center,
+              child: const Text(
+                "Pesquise Algum Video!",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white),
+              ),
+            );
+          }
+        }),
       ),
     );
   }
