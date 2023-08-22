@@ -4,6 +4,8 @@ import 'package:favoritos_youtube/delegates/data_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../widgets/video_tile.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -41,7 +43,23 @@ class Home extends StatelessWidget {
         stream: BlocProvider.getBloc<VideoBloc>().outVideos,
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(itemBuilder: (context, index) {});
+            return ListView.builder(
+                itemCount: snapshot.data!.length + 1,
+                itemBuilder: (context, index) {
+                  if (index < snapshot.data!.length) {
+                    return VideoTile(video: snapshot.data![index]);
+                  } else {
+                    BlocProvider.getBloc<VideoBloc>().inSearch.add("");
+                    return Container(
+                      width: 40,
+                      height: 40,
+                      alignment: Alignment.center,
+                      child: const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation(Colors.red),
+                      ),
+                    );
+                  }
+                });
           } else {
             return Container(
               alignment: Alignment.center,
