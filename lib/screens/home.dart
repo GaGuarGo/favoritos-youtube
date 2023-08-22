@@ -52,14 +52,16 @@ class Home extends StatelessWidget {
               onPressed: () async {
                 String? result =
                     await showSearch(context: context, delegate: DataSearch());
-                if (result != null)
+                if (result != null) {
                   BlocProvider.getBloc<VideoBloc>().inSearch.add(result);
+                }
               },
               icon: const Icon(Icons.search)),
         ],
       ),
       body: StreamBuilder(
         stream: BlocProvider.getBloc<VideoBloc>().outVideos,
+        // ignore: prefer_const_literals_to_create_immutables
         initialData: [],
         builder: ((context, snapshot) {
           return ListView.builder(
