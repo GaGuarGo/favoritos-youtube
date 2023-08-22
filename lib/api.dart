@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:favoritos_youtube/models/video.dart';
 import 'package:http/http.dart' as http;
 
+// ignore: constant_identifier_names
 const API_KEY = "AIzaSyD9QTkxLtBudp-ei5U-3KxyqJdbXWDWfMw";
 
 class API {

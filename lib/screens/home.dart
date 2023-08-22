@@ -52,47 +52,45 @@ class Home extends StatelessWidget {
               onPressed: () async {
                 String? result =
                     await showSearch(context: context, delegate: DataSearch());
-                if (result != null) {
+                if (result != null)
                   BlocProvider.getBloc<VideoBloc>().inSearch.add(result);
-                }
               },
               icon: const Icon(Icons.search)),
         ],
       ),
       body: StreamBuilder(
         stream: BlocProvider.getBloc<VideoBloc>().outVideos,
+        initialData: [],
         builder: ((context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-                itemCount: snapshot.data!.length + 1,
-                itemBuilder: (context, index) {
-                  if (index < snapshot.data!.length) {
-                    return VideoTile(video: snapshot.data![index]);
-                  } else {
-                    BlocProvider.getBloc<VideoBloc>().inSearch.add("");
-                    return Container(
-                      width: 40,
-                      height: 40,
-                      alignment: Alignment.center,
-                      child: const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.red),
-                      ),
-                    );
-                  }
-                });
-          } else {
-            return Container(
-              alignment: Alignment.center,
-              child: const Text(
-                "Pesquise Algum Video!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white),
-              ),
-            );
-          }
+          return ListView.builder(
+              itemCount: snapshot.data!.length + 1,
+              itemBuilder: (context, index) {
+                if (index < snapshot.data!.length) {
+                  return VideoTile(video: snapshot.data![index]);
+                } else if (index > 1) {
+                  BlocProvider.getBloc<VideoBloc>().inSearch.add("");
+                  return Container(
+                    width: 40,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.red),
+                    ),
+                  );
+                } else {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: const Text(
+                      "Pesquise Algum Video!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white),
+                    ),
+                  );
+                }
+              });
         }),
       ),
     );

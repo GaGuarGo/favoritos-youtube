@@ -2,7 +2,6 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:favoritos_youtube/blocs/favorite-bloc.dart';
 import 'package:favoritos_youtube/screens/video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../models/video.dart';
 
