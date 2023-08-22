@@ -1,6 +1,5 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:favoritos_youtube/blocs/favorite-bloc.dart';
-import 'package:favoritos_youtube/blocs/video_bloc.dart';
 import 'package:favoritos_youtube/models/video.dart';
 import 'package:flutter/material.dart';
 
