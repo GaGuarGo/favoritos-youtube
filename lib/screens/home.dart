@@ -2,6 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:favoritos_youtube/blocs/favorite-bloc.dart';
 import 'package:favoritos_youtube/blocs/video_bloc.dart';
 import 'package:favoritos_youtube/delegates/data_search.dart';
+import 'package:favoritos_youtube/screens/favorites.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -41,7 +42,12 @@ class Home extends StatelessWidget {
                   }
                 }),
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.star)),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: ((context) => const Favorites())));
+              },
+              icon: const Icon(Icons.star)),
           IconButton(
               onPressed: () async {
                 String? result =
